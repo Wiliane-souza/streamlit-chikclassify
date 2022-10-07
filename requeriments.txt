@@ -1,5 +1,0 @@
-pacotes ncessarios 
-streamlit
-pandas
-pickle
-sklearn
