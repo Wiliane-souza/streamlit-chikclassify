@@ -87,3 +87,4 @@ plot_confusion_matrix(best_model, X_test, y_test, cmap='Blues')
 
 filename_model = "model/model.sav"
 pickle.dump(best_model, open(filename_model, 'wb'))
+
