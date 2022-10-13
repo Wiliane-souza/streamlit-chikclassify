@@ -1,5 +1,7 @@
 import streamlit as st
 
+st.set_page_config(page_title="CHIKINHA", page_icon="./assets/img/favicon.png")
+
 st.write("<h1 style='text-align: center;'>CHIKINHA</h1>", unsafe_allow_html=True)
 
 st.write("<hr>", unsafe_allow_html=True)
