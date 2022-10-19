@@ -8,7 +8,7 @@ header(st)
 
 st.write("<h3 style='text-align: center;'>Diagnóstico de Chikungunya</h3>", unsafe_allow_html=True)
 
-tab_dt, tab_rf, tab_ab = st.tabs(["Decision Tree", "Random Forest", "Ada Boost"])
+tab_dt, tab_rf, tab_ab = st.tabs(["Decision Tree (Recomendado)", "Random Forest", "Ada Boost"])
 
 with tab_dt:
     decision_tree_form(st)
