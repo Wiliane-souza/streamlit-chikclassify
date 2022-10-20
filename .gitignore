@@ -1,2 +1,4 @@
 workshop
 venv
+components/__pycache__
+components/forms/__pycache__

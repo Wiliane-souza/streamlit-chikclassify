@@ -1,8 +1,6 @@
 from components.header import header
 import streamlit as st
 
-st.set_page_config(page_title="CO Diagnóstico", page_icon="./assets/img/favicon.png")
-
 header(st)
 
 st.write("<h3 style='text-align: center;'> Sua assistente no diagnóstico da Chikungunya!</h3>", unsafe_allow_html=True)
