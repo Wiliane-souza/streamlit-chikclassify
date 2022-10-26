@@ -12,9 +12,11 @@ st.write("<p style='text-align: justify;'> O CO Diagnóstico é uma plataforma q
     e classificação de casos de Chikungunya. Para isso, utiliza a técnicas como Decision Tree, Random Forest\
     Ada Boost, KNN e outros. É utilizada\
     uma base com dados reais de 140.516 pacientes brasileiros, coletados do Sistema de Informação de \
-    Agravos de Notificação (SIAN). Utiliza 8 atributos, que consistem em sexo do paciente e sintomas clínicos \
-    como febre, mialgia, cefaleia, exantema, artrite, artralgia e dor retro abdominal; \
-    além da classe alvo (Chikungunya ou Outras doenças). O modelo melhor modelo, que atualmente utiliza \
-    Decision Tree, obteve acurácia de 83,7% \
-    e precisão, sensibilidade e F1-score de 84%.</p>", unsafe_allow_html=True)
+    Agravos de Notificação (SIAN). Utiliza 10 atributos, que consistem dados sobre o paciente e sintomas clínicos. \
+    O modelo melhor modelo, que atualmente utiliza Random Forest, obteve as seguintes métricas:", unsafe_allow_html=True)
+
+st.write("<span>Acurácia: 84.61%</span>", unsafe_allow_html=True)
+st.write("<span>Precisão: 85%</span>", unsafe_allow_html=True)
+st.write("<span>Sensibilidade: 84%</span>", unsafe_allow_html=True)
+st.write("<span>F1-score: 84%</span>", unsafe_allow_html=True)
 

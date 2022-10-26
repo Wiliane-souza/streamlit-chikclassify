@@ -29,7 +29,7 @@ with tab2:
     Agravos de Notificação (SIAN). Originalmente, a base contava com 120 colunas, também chamados\
     de atributos. Desses, foram removidos atributos capazes de enviezar os aprendizado do modelo \
     tais quais resultados de exames. Também foram removidos aqueles irrelevantes para a identificação \
-    da Chikungunya, como raça e idade. Dessa forma, o número de atributos foi reduzido, e, com aplicação \
+    da Chikungunya, como região, datas, raça, idade e outros. Dessa forma, o número de atributos foi reduzido, e, com aplicação \
     de feature selection, foram mantidos 10 atributos. </p>", unsafe_allow_html=True)
 
     st.write("<p style='text-align: justify;'>É importante lembrar que os modelos treinados \
@@ -51,16 +51,34 @@ with tab2:
     st.image("./assets/img/balance_after.png", caption="Depois do under sampling", width=500)
 
 with tab3:
-    st.write("<h3>O melhor modelo</h3>", unsafe_allow_html=True)
 
-    st.write("<h5>Grid Search</h5>", unsafe_allow_html=True)
-    st.write("<p style='text-align: justify;'>Texto sobre o grid search do melhor modelo \
+    st.write("<h3>O melhor modelo</h3>", unsafe_allow_html=True)
+    st.write("<p style='text-align: justify;'>O modelo que utiliza o método Random Forest foi selecionado \
+    como melhor modelo, tendo acurácia de 84.61%, precisão de 85% e, por fim, sensibilidade e f1-score de 84%. \
+    Tais resultados são similares aos de outro modelo que utilizou Gradient Boosting para o treinamento, porém, \
+    o modelo escolhido um possui tempo de processamento muito menor, portanto, apresenta vantagem.   \
     .</p>", unsafe_allow_html=True)
-    # TODO: imagem do grid search st.image("https://static.streamlit.io/examples/owl.jpg", width=200)
 
     st.write("<h5>Feature Selection</h5>", unsafe_allow_html=True)
-    st.write("<p style='text-align: justify;'>Texto sobre o gFeature Selection do melhor modelo \
+    st.write("<p style='text-align: justify;'>Foi aplicada no modelo a estratégia de feature selection, a fim \
+    de itendificar os melhores atributos a serem utilizados no mesmo. Ao final do processo, o algorítimo selecionou \
+    os seguintes atributos: tempo gestacional, febre, mialgia, dor nas costas, artrite, \
+    artralgia, diabetes, gengivorragia, metrorragia e petequias. \
     .</p>", unsafe_allow_html=True)
-    # TODO: imagem do Feature Selection st.image("https://static.streamlit.io/examples/owl.jpg", width=200)
+
+    st.write("<h5>Grid Search</h5>", unsafe_allow_html=True)
+    st.write("<p style='text-align: justify;'>Outra estratégia aplicada foi a de grid search, utilizada para \
+    identificar os melhores parâmetros para treinamento do modelo. Os parâmetros selecionados foram utilizados \
+    treinamento final, sendo eles:</p>", unsafe_allow_html=True)
+    st.write("<span>bootstrap: True</span>", unsafe_allow_html=True)
+    st.write("<span>criterion: gini</span>", unsafe_allow_html=True)
+    st.write("<span>max_depth: None, </span>", unsafe_allow_html=True)
+    st.write("<span>min_samples_leaf: 5, </span>", unsafe_allow_html=True)
+    st.write("<span>min_samples_split: 5, </span>", unsafe_allow_html=True)
+    st.write("<span>n_estimators: 150</span>", unsafe_allow_html=True)
+
+    st.write("<h5>Matriz de Confusão</h5>", unsafe_allow_html=True)
+    st.image("./assets/img/random_forest_grid_search.png", caption="Matriz de confusão dos resultados do melhor modelo.", width=500)
+
 
 
