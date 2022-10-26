@@ -46,9 +46,9 @@ with tab2:
     os quais não poderiam ser criados para dar suporte a um Over Sampling. Ao fim do processo, ambas as \
     as classificações possuiam 7095 resultados cada, totalizando um conjunto de 14.190 dados.</p>", unsafe_allow_html=True)
 
-    # st.image("./assets/img/balance_before.png", caption="Antes do under sampling", width=500)
+    st.image("./assets/img/balance_before.png", caption="Antes do under sampling", width=500)
 
-    # st.image("./assets/img/balance_after.png", caption="Depois do under sampling", width=500)
+    st.image("./assets/img/balance_after.png", caption="Depois do under sampling", width=500)
 
 with tab3:
     st.write("<h3>O melhor modelo</h3>", unsafe_allow_html=True)
