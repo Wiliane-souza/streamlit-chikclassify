@@ -30,7 +30,7 @@ with tab2:
     de atributos. Desses, foram removidos atributos capazes de enviezar os aprendizado do modelo \
     tais quais resultados de exames. Também foram removidos aqueles irrelevantes para a identificação \
     da Chikungunya, como raça e idade. Dessa forma, o número de atributos foi reduzido, e, com aplicação \
-    de feature selection, foram mantidos [X] atributos. </p>", unsafe_allow_html=True)
+    de feature selection, foram mantidos 10 atributos. </p>", unsafe_allow_html=True)
 
     st.write("<p style='text-align: justify;'>É importante lembrar que os modelos treinados \
     trabalham apenas com dados numéricos. Sendo assim, todos os atributos que não estavam nesse \
@@ -44,10 +44,11 @@ with tab2:
     utilizando a técnica de Under Sampling, onde a quantidade de dados é nivelado entre as classificações \
     pelo menor número. O Under Sampling foi escolhido por se tratarem de dados reais de indivíduos, os \
     os quais não poderiam ser criados para dar suporte a um Over Sampling. Ao fim do processo, ambas as \
-    as classificações possuiam 7095 resultados cada.</p>", unsafe_allow_html=True)
+    as classificações possuiam 7095 resultados cada, totalizando um conjunto de 14.190 dados.</p>", unsafe_allow_html=True)
 
-    # TODO: Imagem antes e depois?
-    # st.image("https://static.streamlit.io/examples/owl.jpg", width=200)
+    # st.image("./assets/img/balance_before.png", caption="Antes do under sampling", width=500)
+
+    # st.image("./assets/img/balance_after.png", caption="Depois do under sampling", width=500)
 
 with tab3:
     st.write("<h3>O melhor modelo</h3>", unsafe_allow_html=True)

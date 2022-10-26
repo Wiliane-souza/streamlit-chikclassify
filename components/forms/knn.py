@@ -1,32 +1,25 @@
-# 'CS_SEXO', # 1, 2 ou 3 (masculino, feminino, nenhum)
-# 'CS_GESTANT', # 1-3 (trimestre), 4-idade gestacional ignorado, 5- Não gestante, 6- Não se aplica, 9-ignorado
-# 'FEBRE', # 1 ou 2
-# 'MIALGIA', # 1 ou 2
-# 'VOMITO', # 1 ou 2
-# 'NAUSEA', # 1 ou 2
-# 'DOR_COSTAS', # 1 ou 2
-# 'ARTRITE', # 1 ou 2
-# 'ARTRALGIA', # 1 ou 2
-# 'DOR_RETRO', # 1 ou 2
-# 'CLASSI_FIN'
+# [
+#     'CS_GESTANT',  #
+#     'FEBRE',  #
+#     'CEFALEIA',  #
+#     'DOR_COSTAS',  #
+#     'ARTRITE',  #
+#     'ARTRALGIA', #
+#     'HEMATOLOG', Doenças Hematológicas # 1 ou 2 #
+#     'HEPATOPAT', Hepatopatias # 1 ou 2 #
+#     'RENAL', 
+#     'GENGIVO'
+# ]
 
 import pickle
 
 with open('model/decision_tree.sav', 'rb')as f:
     clf = pickle.load(f)
 
-def decision_tree_form(st):
-    with st.form("Decision Tree", clear_on_submit=True):
+def knn_form(st):
+    with st.form("KNN", clear_on_submit=True):
         st.write("<p>Informações do paciente</p>", unsafe_allow_html=True)
         st.write("<hr style='margin: 0'>", unsafe_allow_html=True)
-
-        sexo = st.selectbox("Sexo", ["Não informado", "Masculino", "Feminino"])
-        if sexo == "Masculino":
-            sexo = 1
-        elif sexo == "Feminino":
-            sexo = 2
-        else: 
-            sexo = 0
 
         idade_gestacional = st.selectbox("Idade Gestacional", [
             "Ignorado",
@@ -61,37 +54,17 @@ def decision_tree_form(st):
         else:
             febre = 2
 
-        mialgia = st.checkbox("Mialgia") 
-        if mialgia:
-            mialgia = 1
+        cefaleia = st.checkbox("Cefaleia")
+        if cefaleia:
+            cefaleia = 1
         else:
-            mialgia = 2
-
-        vomito = st.checkbox("Vômito") 
-        if vomito:
-            vomito = 1
-        else:
-            vomito = 2
+            cefaleia = 2
 
         dor_costas = st.checkbox("Dor nas costas") 
         if dor_costas:
             dor_costas = 1
         else:
             dor_costas = 2
-
-        nausea = st.checkbox("Nausea") 
-        if nausea:
-            nausea = 1
-        else:
-            nausea = 2
-
-        # cefaleia = st.checkbox("Cefaleia")
-        # if cefaleia:
-        #     cefaleia = 1
-
-        # exantema = st.checkbox("Exantema")
-        # if exantema:
-        #     exantema = 1
 
         artrite = st.checkbox("Artrite") 
         if artrite:
@@ -105,18 +78,36 @@ def decision_tree_form(st):
         else:
             artralgia = 2
 
-        dor_retro = st.checkbox("Dor retro-orbital") 
-        if dor_retro:
-            dor_retro = 1
+        hematolog = st.checkbox("Doenças Hematológicas") 
+        if hematolog:
+            hematolog = 1
         else:
-            dor_retro = 2
+            hematolog = 2
+
+        hepatopat = st.checkbox("Hepatopatias") 
+        if hepatopat:
+            hepatopat = 1
+        else:
+            hepatopat = 2
+
+        renal = st.checkbox("Doença renal crônica")
+        if renal:
+            renal = 1
+        else:
+            renal = 2
+
+        gengivo = st.checkbox("Gengivorragia")
+        if gengivo:
+            gengivo = 1
+        else:
+            gengivo = 2
 
         if st.form_submit_button("Enviar"):
 
-            # ['CS_SEXO', 'CS_GESTANT', 'FEBRE', 'MIALGIA', 'VOMITO', 'NAUSEA', 'DOR_COSTAS', 
-            # 'ARTRITE', 'ARTRALGIA', 'DOR_RETRO', 'CLASSI_FIN']
+            # ['CS_GESTANT', 'FEBRE', 'CEFALEIA', 'DOR_COSTAS', 'ARTRITE', 'ARTRALGIA',
+            # 'HEMATOLOG', 'HEPATOPAT', 'RENAL', 'GENGIVO']
 
-            result = clf.predict([[sexo, idade_gestacional, febre, mialgia, vomito, nausea, dor_costas, artrite, artralgia, dor_retro]])[0]
+            result = clf.predict([[idade_gestacional, febre, cefaleia, dor_costas, artrite, artralgia, hematolog, hepatopat, renal, gengivo]])[0]
             
             st.write("<h5 style='margin-top: 2rem'>Resultado:</h5>", unsafe_allow_html=True)
 
