@@ -17,6 +17,6 @@ st.write("<p style='text-align: justify;'> O CO Diagnóstico é uma plataforma q
 
 st.write("<span>Acurácia: 84.61%</span>", unsafe_allow_html=True)
 st.write("<span>Precisão: 85%</span>", unsafe_allow_html=True)
-st.write("<span>Sensibilidade: 84%</span>", unsafe_allow_html=True)
-st.write("<span>F1-score: 84%</span>", unsafe_allow_html=True)
+st.write("<span>Sensibilidade: 85%</span>", unsafe_allow_html=True)
+st.write("<span>F1-score: 85%</span>", unsafe_allow_html=True)
 

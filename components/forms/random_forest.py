@@ -121,5 +121,5 @@ def random_forest_form(st):
     st.write("<h5>Métricas desse modelo: </h5>", unsafe_allow_html=True)
     st.write("<p>Acurácia: 84.61%</p>", unsafe_allow_html=True)
     st.write("<p>Precisão: 85%</p>", unsafe_allow_html=True)
-    st.write("<p>Sensibilidade: 84%</p>", unsafe_allow_html=True)
-    st.write("<p>F1-score: 84%</p>", unsafe_allow_html=True)
+    st.write("<p>Sensibilidade: 85%</p>", unsafe_allow_html=True)
+    st.write("<p>F1-score: 85%</p>", unsafe_allow_html=True)

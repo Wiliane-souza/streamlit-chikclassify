@@ -118,6 +118,6 @@ def knn_form(st):
     
     st.write("<h5>Métricas desse modelo: </h5>", unsafe_allow_html=True)
     st.write("<p>Acurácia: 83.88%</p>", unsafe_allow_html=True)
-    st.write("<p>Precisão: 85%</p>", unsafe_allow_html=True)
-    st.write("<p>Sensibilidade: 83%</p>", unsafe_allow_html=True)
+    st.write("<p>Precisão: 84%</p>", unsafe_allow_html=True)
+    st.write("<p>Sensibilidade: 84%</p>", unsafe_allow_html=True)
     st.write("<p>F1-score: 84%</p>", unsafe_allow_html=True)

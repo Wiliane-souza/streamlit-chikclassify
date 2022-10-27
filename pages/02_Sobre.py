@@ -54,9 +54,9 @@ with tab3:
 
     st.write("<h3>O melhor modelo</h3>", unsafe_allow_html=True)
     st.write("<p style='text-align: justify;'>O modelo que utiliza o método Random Forest foi selecionado \
-    como melhor modelo, tendo acurácia de 84.61%, precisão de 85% e, por fim, sensibilidade e f1-score de 84%. \
-    Tais resultados são similares aos de outro modelo que utilizou Gradient Boosting para o treinamento, porém, \
-    o modelo escolhido um possui tempo de processamento muito menor, portanto, apresenta vantagem.   \
+    como melhor modelo, tendo acurácia de 84.61%, e média macro para precisão, sensibilidade e f1-score de 85%. \
+    Tais resultados são idênticos aos de outro modelo que utilizou Gradient Boosting para o treinamento, porém, \
+    o modelo escolhido possui um tempo de processamento muito menor, portanto, apresenta vantagem.   \
     .</p>", unsafe_allow_html=True)
 
     st.write("<h5>Feature Selection</h5>", unsafe_allow_html=True)
