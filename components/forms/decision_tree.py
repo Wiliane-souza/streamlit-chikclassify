@@ -1,32 +1,28 @@
-# 'CS_SEXO', # 1, 2 ou 3 (masculino, feminino, nenhum)
-# 'CS_GESTANT', # 1-3 (trimestre), 4-idade gestacional ignorado, 5- Não gestante, 6- Não se aplica, 9-ignorado
-# 'FEBRE', # 1 ou 2
-# 'MIALGIA', # 1 ou 2
-# 'VOMITO', # 1 ou 2
-# 'NAUSEA', # 1 ou 2
-# 'DOR_COSTAS', # 1 ou 2
-# 'ARTRITE', # 1 ou 2
-# 'ARTRALGIA', # 1 ou 2
-# 'DOR_RETRO', # 1 ou 2
-# 'CLASSI_FIN'
+# CS_GESTANT, # 1-3 (trimestre), 4-idade gestacional ignorado, 5- Não gestante, 6- Não se aplica, 9-ignorado
+# MIALGIA, # 1 ou 2
+# EXANTEMA, # 1 ou 2
+# NAUSEA, # 1 ou 2
+# ARTRALGIA, # 1 ou 2
+# LEUCOPENIA, # 1 ou 2
+# DIABETES, # 1 ou 2
+# HEMATOLOG, # 1 ou 2
+# HEPATOPAT, # 1 ou 2
+# AUTO_IMUNE, # 1 ou 2
+# CLASSI_FIN
 
 import pickle
+import pandas as pd
 
-with open('model/decision_tree.sav', 'rb')as f:
+with open('models/decision_tree.sav', 'rb')as f:
     clf = pickle.load(f)
 
 def decision_tree_form(st):
+
+    st.write("<h5>Teste</h5>", unsafe_allow_html=True)
+    
     with st.form("Decision Tree", clear_on_submit=True):
         st.write("<p>Informações do paciente</p>", unsafe_allow_html=True)
         st.write("<hr style='margin: 0'>", unsafe_allow_html=True)
-
-        sexo = st.selectbox("Sexo", ["Não informado", "Masculino", "Feminino"])
-        if sexo == "Masculino":
-            sexo = 1
-        elif sexo == "Feminino":
-            sexo = 2
-        else: 
-            sexo = 0
 
         idade_gestacional = st.selectbox("Idade Gestacional", [
             "Ignorado",
@@ -34,7 +30,7 @@ def decision_tree_form(st):
             "2º Trimestre",
             "3º Trimestre",
             "Idade gestacional ignorada",
-            "Não gestante",
+            "Mulher não gestante",
             "Não se aplica (Crianças)"
         ])
         if idade_gestacional == "1º Trimestre":
@@ -45,7 +41,7 @@ def decision_tree_form(st):
             idade_gestacional = 3
         elif idade_gestacional == "Idade gestacional ignorada":
             idade_gestacional = 4
-        elif idade_gestacional == "Não gestante":
+        elif idade_gestacional == "Mulher não gestante":
             idade_gestacional = 5
         elif idade_gestacional == "Não se aplica (Crianças)":
             idade_gestacional = 6
@@ -54,12 +50,6 @@ def decision_tree_form(st):
 
         st.write("<p style='margin-top: 1rem'>Sintomas do paciente</p>", unsafe_allow_html=True)
         st.write("<hr style='margin: 0'>", unsafe_allow_html=True)
-        
-        febre = st.checkbox("Febre") 
-        if febre:
-            febre = 1
-        else:
-            febre = 2
 
         mialgia = st.checkbox("Mialgia") 
         if mialgia:
@@ -67,17 +57,11 @@ def decision_tree_form(st):
         else:
             mialgia = 2
 
-        vomito = st.checkbox("Vômito") 
-        if vomito:
-            vomito = 1
+        exantema = st.checkbox("Exantema")
+        if exantema:
+            exantema = 1
         else:
-            vomito = 2
-
-        dor_costas = st.checkbox("Dor nas costas") 
-        if dor_costas:
-            dor_costas = 1
-        else:
-            dor_costas = 2
+            exantema = 2
 
         nausea = st.checkbox("Nausea") 
         if nausea:
@@ -85,38 +69,45 @@ def decision_tree_form(st):
         else:
             nausea = 2
 
-        # cefaleia = st.checkbox("Cefaleia")
-        # if cefaleia:
-        #     cefaleia = 1
-
-        # exantema = st.checkbox("Exantema")
-        # if exantema:
-        #     exantema = 1
-
-        artrite = st.checkbox("Artrite") 
-        if artrite:
-            artrite = 1
-        else:
-            artrite = 2
-
         artralgia = st.checkbox("Artralgia") 
         if artralgia:
             artralgia = 1
         else:
             artralgia = 2
 
-        dor_retro = st.checkbox("Dor retro-orbital") 
-        if dor_retro:
-            dor_retro = 1
+        leucopenia = st.checkbox("Leucopenia") 
+        if leucopenia:
+            leucopenia = 1
         else:
-            dor_retro = 2
+            leucopenia = 2
+
+        diabetes = st.checkbox("Diabetes") 
+        if diabetes:
+            diabetes = 1
+        else:
+            diabetes = 2
+
+        hematolog = st.checkbox("Doenças hematológicas") 
+        if hematolog:
+            hematolog = 1
+        else:
+            hematolog = 2
+
+        hepatopat = st.checkbox("Hepatopatias") 
+        if hepatopat:
+            hepatopat = 1
+        else:
+            hepatopat = 2
+
+        auto_imune = st.checkbox("Doenças auto-imunes") 
+        if auto_imune:
+            auto_imune = 1
+        else:
+            auto_imune = 2
 
         if st.form_submit_button("Enviar"):
 
-            # ['CS_SEXO', 'CS_GESTANT', 'FEBRE', 'MIALGIA', 'VOMITO', 'NAUSEA', 'DOR_COSTAS', 
-            # 'ARTRITE', 'ARTRALGIA', 'DOR_RETRO', 'CLASSI_FIN']
-
-            result = clf.predict([[sexo, idade_gestacional, febre, mialgia, vomito, nausea, dor_costas, artrite, artralgia, dor_retro]])[0]
+            result = clf.predict([[idade_gestacional, mialgia, exantema, nausea, artralgia, leucopenia, diabetes, hematolog, hepatopat, auto_imune]])[0]
             
             st.write("<h5 style='margin-top: 2rem'>Resultado:</h5>", unsafe_allow_html=True)
 
@@ -124,9 +115,12 @@ def decision_tree_form(st):
                 st.write("<p style='align-text: center'>Provável chikungunya</p>", unsafe_allow_html=True)
             else:
                 st.write("<p style='align-text: center'>Provável não chikungunya</p>", unsafe_allow_html=True)
-    
-    st.write("<h5>Métricas desse modelo: </h5>", unsafe_allow_html=True)
-    st.write("<p>Acurácia: 84.21%</p>", unsafe_allow_html=True)
-    st.write("<p>Precisão: 84%</p>", unsafe_allow_html=True)
-    st.write("<p>Sensibilidade: 84%</p>", unsafe_allow_html=True)
-    st.write("<p>F1-score: 84%</p>", unsafe_allow_html=True)
+
+
+    st.write("<h5>Métricas do modelo</h5>", unsafe_allow_html=True)
+    df = pd.DataFrame({
+        'Métrica': ['Accuracy', 'Precision (média macro)', 'Recall (média macro)', 'F1-score (média macro)'],
+        'Valor': ['66,2%', '66,3%', '66,4%', '66,2%']
+    })
+
+    st.table(data=df)

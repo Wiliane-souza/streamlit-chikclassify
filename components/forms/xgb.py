@@ -1,28 +1,28 @@
+
 # [
-#     'CS_GESTANT',  #
-#     'FEBRE', #
-#     'NAUSEA', #
-#     'CONJUTIVITE', #
-#     'ARTRITE', #
-#     'ARTRALGIA',  # 
-#     'PETEQUIA_N',  # 
-#     'LEUCONPENIA',  # 
-#     'DOR_RETRO',  # 
-#     'HEMATOLOG', #
-#     'RENAL' #
+#     'CS_GESTANT', #  1-3 (trimestre), 4-idade gestacional ignorado, 5- Não gestante, 6- Não se aplica, 9-ignorado
+#     'FEBRE', # 1 ou 2
+#     'CEFALEIA',  # 1 ou 2
+#     'VOMITO', # 1 ou 2
+#     'ARTRALGIA', # 1 ou 2
+#     'LEUCOPENIA', # 1 ou 2
+#     'DOR_RETRO', # 1 ou 2
+#     'HEMATOLOG', # 1 ou 2
+#     'HEPATOPAT', # 1 ou 2
+#     'HIPERTENSA'
 # ]
 
 import pickle
 import pandas as pd
 
-with open('models/adaBoost.sav', 'rb')as f:
+with open('models/xgb.sav', 'rb')as f:
     clf = pickle.load(f)
 
-def ada_boost_form(st):
+def xgb_form(st):
 
     st.write("<h5>Teste</h5>", unsafe_allow_html=True)
-    
-    with st.form("Ada Boost", clear_on_submit=True):
+
+    with st.form("eXtreme Gradient Boosting", clear_on_submit=True):
         st.write("<p>Informações do paciente</p>", unsafe_allow_html=True)
         st.write("<hr style='margin: 0'>", unsafe_allow_html=True)
 
@@ -59,35 +59,23 @@ def ada_boost_form(st):
         else:
             febre = 2
 
-        nausea = st.checkbox("Nausea") 
-        if nausea:
-            nausea = 1
+        cefaleia = st.checkbox("Cefaleia")
+        if cefaleia:
+            cefaleia = 1
         else:
-            nausea = 2
+            cefaleia = 2
 
-        conjutivite = st.checkbox("Conjutivite") 
-        if conjutivite:
-            conjutivite = 1
+        vomito = st.checkbox("Vômito")
+        if vomito:
+            vomito = 1
         else:
-            conjutivite = 2
+            vomito = 2
 
-        artrite = st.checkbox("Artrite") 
-        if artrite:
-            artrite = 1
-        else:
-            artrite = 2
-
-        artralgia = st.checkbox("Artralgia") 
+        artralgia = st.checkbox("Artralgia")
         if artralgia:
             artralgia = 1
         else:
             artralgia = 2
-
-        petequias = st.checkbox("Petequias")
-        if petequias:
-            petequias = 1
-        else:
-            petequias = 2
 
         leucopenia = st.checkbox("Leucopenia")
         if leucopenia:
@@ -107,10 +95,22 @@ def ada_boost_form(st):
         else:
             hematolog = 2
 
+        hepatopat = st.checkbox("Hepatopatias")
+        if hepatopat:
+            hepatopat = 1
+        else:
+            hepatopat = 2
+
+        hipertensao = st.checkbox("Hipertensão arterial") 
+        if hipertensao:
+            hipertensao = 1
+        else:
+            hipertensao = 2
+
         if st.form_submit_button("Enviar"):
 
-            result = clf.predict([[idade_gestacional, febre, nausea, conjutivite, artrite, artralgia, petequias, leucopenia, dor_retro, hematolog]])[0]
-
+            result = clf.predict([[idade_gestacional, febre, cefaleia, vomito, artralgia, leucopenia, dor_retro, hematolog, hepatopat, hipertensao]])[0]
+            
             st.write("<h5 style='margin-top: 2rem'>Resultado:</h5>", unsafe_allow_html=True)
 
             if result == 1:
@@ -123,7 +123,7 @@ def ada_boost_form(st):
 
     df = pd.DataFrame({
         'Métrica': ['Accuracy', 'Precision (média macro)', 'Recall (média macro)', 'F1-score (média macro)'],
-        'Valor': ['67,8%', '67,7%', '67,8%', '67,7%']
+        'Valor': ['67,3%', '67,5%', '67,5%', '67,3%']
     })
 
     st.table(data=df)

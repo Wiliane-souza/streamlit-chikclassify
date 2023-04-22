@@ -1,25 +1,29 @@
-[
-    'CS_GESTANT', #
-    'FEBRE',  #
-    'MIALGIA', #
-    'DOR_COSTAS', #
-    'ARTRITE', #
-    'ARTRALGIA', #
-    'LEUCOPENIA', #
-    'RENAL', #
-    'METRO', #
-    'SANGRAM', 
-    'CLASSI_FIN'
-]
+# [
+#     'CS_GESTANT', #
+#     'FEBRE',  #
+#     'DOR_COSTAS', #
+#     'ARTRALGIA', #
+#     'PETEQUIA_N', #
+#     'LEUCOPENIA', #
+#     'DOR_RETRO', #
+#     'DIABETES', #
+#     'HEMATOLOG', #
+#     'HEPATOPAT', #
+#     'CLASSI_FIN'
+# ]
 
 
 
 import pickle
+import pandas as pd
 
-with open('model/gradient_boosting.sav', 'rb')as f:
+with open('models/gradient_boosting.sav', 'rb')as f:
     clf = pickle.load(f)
 
 def gradient_boosting_form(st):
+
+    st.write("<h5>Teste</h5>", unsafe_allow_html=True)
+    
     with st.form("Gradient Boosting", clear_on_submit=True):
         st.write("<p>Informações do paciente</p>", unsafe_allow_html=True)
         st.write("<hr style='margin: 0'>", unsafe_allow_html=True)
@@ -57,29 +61,23 @@ def gradient_boosting_form(st):
         else:
             febre = 2
 
-        mialgia = st.checkbox("Mialgia") 
-        if mialgia:
-            mialgia = 1
-        else:
-            mialgia = 2
-
-        dor_costas = st.checkbox("Dor nas costas") 
+        dor_costas = st.checkbox("Dor nas costas")
         if dor_costas:
             dor_costas = 1
         else:
             dor_costas = 2
 
-        artrite = st.checkbox("Artrite") 
-        if artrite:
-            artrite = 1
-        else:
-            artrite = 2
-
-        artralgia = st.checkbox("Artralgia") 
+        artralgia = st.checkbox("Artralgia")
         if artralgia:
             artralgia = 1
         else:
             artralgia = 2
+
+        petequias = st.checkbox("Petequias")
+        if petequias:
+            petequias = 1
+        else:
+            petequias = 2
 
         leucopenia = st.checkbox("Leucopenia")
         if leucopenia:
@@ -87,30 +85,33 @@ def gradient_boosting_form(st):
         else:
             leucopenia = 2
 
-        renal = st.checkbox("Doença renal crônica")
-        if renal:
-            renal = 1
+        dor_retro = st.checkbox("Dor retroorbital")
+        if dor_retro:
+            dor_retro = 1
         else:
-            renal = 2
+            dor_retro = 2
 
-        metro = st.checkbox("Metrorragia")
-        if metro:
-            metro = 1
+        diabetes = st.checkbox("Diabetes")
+        if diabetes:
+            diabetes = 1
         else:
-            metro = 2
+            diabetes = 2
 
-        sangram = st.checkbox("*Sangramento")
-        if sangram:
-            sangram = 1
+        hematolog = st.checkbox("Doenças hematológicas")
+        if hematolog:
+            hematolog = 1
         else:
-            sangram = 2
+            hematolog = 2
+
+        hepatopat = st.checkbox("Hepatopatias")
+        if hepatopat:
+            hepatopat = 1
+        else:
+            hepatopat = 2
 
         if st.form_submit_button("Enviar"):
 
-            # ['CS_GESTANT', 'FEBRE', 'MIALGIA', 'DOR_COSTAS', 'ARTRITE', 'ARTRALGIA',
-            # 'LEUCOPENIA', 'RENAL', 'METRO', 'SANGRAM', 'CLASSI_FIN']
-
-            result = clf.predict([[idade_gestacional, febre, mialgia, dor_costas, artrite, artralgia, leucopenia, renal, metro, sangram]])[0]
+            result = clf.predict([[idade_gestacional, febre, dor_costas, artralgia, petequias, leucopenia, dor_retro, diabetes, hematolog, hepatopat]])[0]
             
             st.write("<h5 style='margin-top: 2rem'>Resultado:</h5>", unsafe_allow_html=True)
 
@@ -119,8 +120,12 @@ def gradient_boosting_form(st):
             else:
                 st.write("<p style='align-text: center'>Provável não chikungunya</p>", unsafe_allow_html=True)
 
-    st.write("<h5>Métricas desse modelo: </h5>", unsafe_allow_html=True)
-    st.write("<p>Acurácia: 84.61%</p>", unsafe_allow_html=True)
-    st.write("<p>Precisão: 85%</p>", unsafe_allow_html=True)
-    st.write("<p>Sensibilidade: 85%</p>", unsafe_allow_html=True)
-    st.write("<p>F1-score: 85%</p>", unsafe_allow_html=True)
+
+    st.write("<h5>Métricas do modelo</h5>", unsafe_allow_html=True)
+
+    df = pd.DataFrame({
+        'Métrica': ['Accuracy', 'Precision (média macro)', 'Recall (média macro)', 'F1-score (média macro)'],
+        'Valor': ['67,3%', '67,9%', '67,7%', '67,2%']
+    })
+
+    st.table(data=df)

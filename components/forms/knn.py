@@ -1,22 +1,26 @@
 # [
-#     'CS_GESTANT',  #
-#     'FEBRE',  #
-#     'CEFALEIA',  #
-#     'DOR_COSTAS',  #
-#     'ARTRITE',  #
+#     'MIALGIA',  #
+#     'NAUSEA',  #
 #     'ARTRALGIA', #
+#     'PETEQUIA_N', #
+#     'LEUCOPENIA', #
+#     'DOR_RETRO', #
 #     'HEMATOLOG', Doenças Hematológicas # 1 ou 2 #
 #     'HEPATOPAT', Hepatopatias # 1 ou 2 #
-#     'RENAL', 
-#     'GENGIVO'
+#     'HIPERTENSA', #
+#     'ACIDO_PEPT', #
 # ]
 
 import pickle
+import pandas as pd
 
-with open('model/decision_tree.sav', 'rb')as f:
+with open('models/knn.sav', 'rb')as f:
     clf = pickle.load(f)
 
 def knn_form(st):
+
+    st.write("<h5>Teste</h5>", unsafe_allow_html=True)
+    
     with st.form("KNN", clear_on_submit=True):
         st.write("<p>Informações do paciente</p>", unsafe_allow_html=True)
         st.write("<hr style='margin: 0'>", unsafe_allow_html=True)
@@ -48,35 +52,41 @@ def knn_form(st):
         st.write("<p style='margin-top: 1rem'>Sintomas do paciente</p>", unsafe_allow_html=True)
         st.write("<hr style='margin: 0'>", unsafe_allow_html=True)
         
-        febre = st.checkbox("Febre") 
-        if febre:
-            febre = 1
+        mialgia = st.checkbox("Mialgia") 
+        if mialgia:
+            mialgia = 1
         else:
-            febre = 2
+            mialgia = 2
 
-        cefaleia = st.checkbox("Cefaleia")
-        if cefaleia:
-            cefaleia = 1
+        nausea = st.checkbox("Náusea")
+        if nausea:
+            nausea = 1
         else:
-            cefaleia = 2
-
-        dor_costas = st.checkbox("Dor nas costas") 
-        if dor_costas:
-            dor_costas = 1
-        else:
-            dor_costas = 2
-
-        artrite = st.checkbox("Artrite") 
-        if artrite:
-            artrite = 1
-        else:
-            artrite = 2
+            nausea = 2
 
         artralgia = st.checkbox("Artralgia") 
         if artralgia:
             artralgia = 1
         else:
             artralgia = 2
+
+        petequias = st.checkbox("Petequias")
+        if petequias:
+            petequias = 1
+        else:
+            petequias = 2
+
+        leucopenia = st.checkbox("Leucopenia")
+        if leucopenia:
+            leucopenia = 1
+        else:
+            leucopenia = 2
+
+        dor_retro = st.checkbox("Dor retroorbital")
+        if dor_retro:
+            dor_retro = 1
+        else:
+            dor_retro = 2
 
         hematolog = st.checkbox("Doenças Hematológicas") 
         if hematolog:
@@ -90,24 +100,21 @@ def knn_form(st):
         else:
             hepatopat = 2
 
-        renal = st.checkbox("Doença renal crônica")
-        if renal:
-            renal = 1
+        hipertensao = st.checkbox("Hipertensão arterial") 
+        if hipertensao:
+            hipertensao = 1
         else:
-            renal = 2
+            hipertensao = 2
 
-        gengivo = st.checkbox("Gengivorragia")
-        if gengivo:
-            gengivo = 1
+        acido_pept = st.checkbox("Doença ácido-péptica") 
+        if acido_pept:
+            acido_pept = 1
         else:
-            gengivo = 2
+            acido_pept = 2
 
         if st.form_submit_button("Enviar"):
 
-            # ['CS_GESTANT', 'FEBRE', 'CEFALEIA', 'DOR_COSTAS', 'ARTRITE', 'ARTRALGIA',
-            # 'HEMATOLOG', 'HEPATOPAT', 'RENAL', 'GENGIVO']
-
-            result = clf.predict([[idade_gestacional, febre, cefaleia, dor_costas, artrite, artralgia, hematolog, hepatopat, renal, gengivo]])[0]
+            result = clf.predict([[mialgia, nausea, artralgia, petequias, leucopenia, dor_retro, hematolog, hepatopat, hipertensao, acido_pept]])[0]
             
             st.write("<h5 style='margin-top: 2rem'>Resultado:</h5>", unsafe_allow_html=True)
 
@@ -115,9 +122,13 @@ def knn_form(st):
                 st.write("<p style='align-text: center'>Provável chikungunya</p>", unsafe_allow_html=True)
             else:
                 st.write("<p style='align-text: center'>Provável não chikungunya</p>", unsafe_allow_html=True)
-    
-    st.write("<h5>Métricas desse modelo: </h5>", unsafe_allow_html=True)
-    st.write("<p>Acurácia: 83.88%</p>", unsafe_allow_html=True)
-    st.write("<p>Precisão: 84%</p>", unsafe_allow_html=True)
-    st.write("<p>Sensibilidade: 84%</p>", unsafe_allow_html=True)
-    st.write("<p>F1-score: 84%</p>", unsafe_allow_html=True)
+
+
+    st.write("<h5>Métricas do modelo</h5>", unsafe_allow_html=True)
+
+    df = pd.DataFrame({
+        'Métrica': ['Accuracy', 'Precision (média macro)', 'Recall (média macro)', 'F1-score (média macro)'],
+        'Valor': ['67,9%', '68,7%', '68,4%', '67,8%']
+    })
+
+    st.table(data=df)
