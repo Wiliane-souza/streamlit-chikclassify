@@ -14,6 +14,7 @@
 
 import pickle
 import pandas as pd
+import numpy as np
 
 with open('models/xgb.sav', 'rb')as f:
     clf = pickle.load(f)
@@ -108,8 +109,10 @@ def xgb_form(st):
             hipertensao = 2
 
         if st.form_submit_button("Enviar"):
+            
+            test_data = np.array([[idade_gestacional, febre, cefaleia, vomito, artralgia, leucopenia, dor_retro, hematolog, hepatopat, hipertensao]])
 
-            result = clf.predict([[idade_gestacional, febre, cefaleia, vomito, artralgia, leucopenia, dor_retro, hematolog, hepatopat, hipertensao]])[0]
+            result = clf.predict(test_data)[0]
             
             st.write("<h5 style='margin-top: 2rem'>Resultado:</h5>", unsafe_allow_html=True)
 
